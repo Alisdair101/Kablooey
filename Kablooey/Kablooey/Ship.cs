@@ -27,7 +27,6 @@ namespace Kablooey
 			sprite.Quad.S 	= textureInfo.TextureSizef;
 			sprite.Position = new Vector2(Director.Instance.GL.Context.GetViewport().Width,Director.Instance.GL.Context.GetViewport().Height*0.5f);
 			//sprite.Pivot 	= new Vector2(0.5f,0.5f);
-			rise  = false;
 			alive = true;
 			
 			//Add to the current scene.
