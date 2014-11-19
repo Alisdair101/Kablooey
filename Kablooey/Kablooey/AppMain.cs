@@ -15,7 +15,7 @@ namespace Kablooey
 	public class AppMain
 	{
 		private static Sce.PlayStation.HighLevel.GameEngine2D.Scene 	gameScene;
-		private int testVar = 0;
+		private int testVar = 1;
 		public static void Main (string[] args)
 		{
 			Initialize ();
