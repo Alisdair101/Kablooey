@@ -1,6 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Kablooey\AppMain.cs">
+    <Files>
+      <File FileName="Kablooey\AppMain.cs" Line="44" Column="21" />
+      <File FileName="Kablooey\Ship.cs" Line="48" Column="25" />
+      <File FileName="Kablooey\Background.cs" Line="9" Column="19" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Kablooey" expanded="True">
+            <Node name="textures" expanded="True" />
+            <Node name="AppMain.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -16,19 +16,21 @@ namespace Kablooey
 	{
 		private static Sce.PlayStation.HighLevel.GameEngine2D.Scene 	gameScene;
 		private int testVar = 1;
-		public static void Main (string[] args)
+		
+		private static Background background;
+		
+		public static void Main(string[] args)
 		{
 			Initialize ();
 			
 			//Game loop
 			bool quitGame = false;
-			while (quitGame) 
+			while (!quitGame)
 			{
 				Update ();
 				
 				Director.Instance.Update();
 				Director.Instance.Render();
-				UISystem.Render();
 				
 				Director.Instance.GL.Context.SwapBuffers();
 				Director.Instance.PostSwap();
@@ -37,14 +39,17 @@ namespace Kablooey
 			Cleanup ();
 		}
 
-		public static void Initialize ()
+		public static void Initialize()
 		{
 			//Set up director
-			Director.Initialize ();
+			Director.Initialize();
 			
 			//Set game scene
 			gameScene = new Sce.PlayStation.HighLevel.GameEngine2D.Scene();
 			gameScene.Camera.SetViewFromViewport();
+			
+			//Background
+			background = new Background(gameScene);
 			
 			//Run the scene.
 			Director.Instance.RunWithScene(gameScene, true);
@@ -52,6 +57,7 @@ namespace Kablooey
 		
 		public static void Cleanup()
 		{
+			background.Dispose();
 			Director.Terminate();
 		}
 

@@ -39,12 +39,8 @@ namespace Kablooey
 		}
 		
 		public void Update(float deltaTime)
-		{			
-			
-			
+		{	
 			sprite.Position = new Vector2(sprite.Position.X -10f, sprite.Position.Y);
-			
-			
 		}	
 		
 		public void Tapped()
@@ -60,7 +56,6 @@ namespace Kablooey
 				return sprite;
 			}
 		}
-	
 	}
 }
 
