@@ -63,7 +63,7 @@ namespace Kablooey
 
 		public static void Update ()
 		{
-			
+			background.Update(0.0f);
 		}
 	}
 }
