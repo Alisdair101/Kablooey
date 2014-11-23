@@ -45,9 +45,8 @@ namespace Kablooey
 		
 		public void Tapped()
 		{
-			Bounds2 box = sprite.GetContentLocalBounds();
-			sprite.GetContentWorldBounds(ref box);
-			
+			//Bounds2 box = sprite.GetContentLocalBounds();
+			//sprite.GetContentWorldBounds(ref box);
 		}
 		
 		public SpriteUV Sprite
