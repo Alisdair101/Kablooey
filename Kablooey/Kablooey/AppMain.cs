@@ -18,6 +18,7 @@ namespace Kablooey
 		private int testVar = 1;
 		
 		private static Background background;
+		private static Fortress fortress;
 		
 		public static void Main(string[] args)
 		{
@@ -50,6 +51,9 @@ namespace Kablooey
 			
 			//Background
 			background = new Background(gameScene);
+			
+			//Fortress
+			fortress = new Fortress(gameScene);
 			
 			//Run the scene.
 			Director.Instance.RunWithScene(gameScene, true);

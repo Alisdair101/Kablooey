@@ -41,6 +41,7 @@
     <Compile Include="AppMain.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="Background.cs" />
+    <Compile Include="Fortress.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -55,5 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="textures\background.png" />
+    <Content Include="textures\fortress.png" />
   </ItemGroup>
 </Project>
