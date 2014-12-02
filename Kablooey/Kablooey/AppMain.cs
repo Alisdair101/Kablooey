@@ -19,6 +19,7 @@ namespace Kablooey
 		
 		private static Background background;
 		private static Fortress fortress;
+		private static Gun gun;
 		
 		public static void Main(string[] args)
 		{
@@ -54,6 +55,9 @@ namespace Kablooey
 			
 			//Fortress
 			fortress = new Fortress(gameScene);
+			
+			//Gun
+			gun = new Gun(gameScene);
 			
 			//Run the scene.
 			Director.Instance.RunWithScene(gameScene, true);

@@ -42,6 +42,7 @@
     <Compile Include="Ship.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Fortress.cs" />
+    <Compile Include="Gun.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -57,5 +58,6 @@
   <ItemGroup>
     <Content Include="textures\background.png" />
     <Content Include="textures\fortress.png" />
+    <Content Include="textures\gun.png" />
   </ItemGroup>
 </Project>
