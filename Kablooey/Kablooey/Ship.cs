@@ -8,7 +8,7 @@ using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
 namespace Kablooey
 {
-	public class Ship
+	public class Ship 
 	{
 		private static SpriteUV 	sprite;
 		private static TextureInfo	textureInfo;
