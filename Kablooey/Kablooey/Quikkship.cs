@@ -16,7 +16,7 @@ namespace Kablooey
 			
 			sprite 			= new SpriteUV(textureInfo);
 			sprite.Quad.S 	= textureInfo.TextureSizef;
-			sprite.Position = new Vector2(0.0f, 0.0f);
+			sprite.Position = new Vector2(750.0f, 400.0f);
 			
 			health = 1.0f;
 			speed  = 2.0f;
