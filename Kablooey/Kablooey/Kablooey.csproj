@@ -45,7 +45,7 @@
     <Compile Include="Gun.cs" />
     <Compile Include="Quikkship.cs" />
     <Compile Include="SlowShip.cs" />
-    <Compile Include="BaseShip.cs" />
+    <Compile Include="TeleportShip.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -62,5 +62,12 @@
     <Content Include="textures\background.png" />
     <Content Include="textures\fortress.png" />
     <Content Include="textures\gun.png" />
+    <Content Include="textures\quikkShipTex.png" />
+    <Content Include="textures\slowShipTex.png" />
+    <Content Include="textures\teleportShipTex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Kablooey.csproj" />
+    <None Include="Kablooey.pidb" />
   </ItemGroup>
 </Project>

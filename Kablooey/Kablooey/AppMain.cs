@@ -20,6 +20,9 @@ namespace Kablooey
 		private static Background background;
 		private static Fortress fortress;
 		private static Gun gun;
+		private static Ship teleportShip;
+		private static Ship quikkShip;
+		private static Ship slowShip;
 		
 		public static void Main(string[] args)
 		{
@@ -58,6 +61,11 @@ namespace Kablooey
 			
 			//Gun
 			gun = new Gun(gameScene);
+			
+			//Ships
+			teleportShip = new TeleportShip(gameScene);
+			quikkShip = new QuikkShip(gameScene);
+			slowShip = new SlowShip(gameScene);
 			
 			//Run the scene.
 			Director.Instance.RunWithScene(gameScene, true);
