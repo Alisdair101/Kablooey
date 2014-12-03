@@ -43,6 +43,9 @@
     <Compile Include="Background.cs" />
     <Compile Include="Fortress.cs" />
     <Compile Include="Gun.cs" />
+    <Compile Include="Quikkship.cs" />
+    <Compile Include="SlowShip.cs" />
+    <Compile Include="BaseShip.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
