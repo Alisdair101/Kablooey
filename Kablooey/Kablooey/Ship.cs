@@ -29,7 +29,7 @@ namespace Kablooey
 		
 		public void Update(float deltaTime)
 		{	
-			//sprite.Position = new Vector2(sprite.Position.X - speed, sprite.Position.Y);
+			sprite.Position = new Vector2(sprite.Position.X - speed, sprite.Position.Y);
 		}	
 		
 		public void Tapped()
@@ -40,9 +40,7 @@ namespace Kablooey
 		
 		public SpriteUV Sprite
 		{
-			get{
-				return sprite;
-			}
+			get{return sprite;}
 		}
 	}
 }

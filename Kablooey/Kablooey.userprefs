@@ -1,19 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Kablooey\Ship.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Kablooey\AppMain.cs">
     <Files>
-      <File FileName="Kablooey\AppMain.cs" Line="46" Column="4" />
-      <File FileName="Kablooey\Ship.cs" Line="18" Column="26" />
-      <File FileName="Kablooey\Quikkship.cs" Line="19" Column="34" />
-      <File FileName="Kablooey\SlowShip.cs" Line="29" Column="2" />
-      <File FileName="Kablooey\TeleportShip.cs" Line="19" Column="43" />
+      <File FileName="Kablooey\AppMain.cs" Line="83" Column="28" />
+      <File FileName="Kablooey\Background.cs" Line="41" Column="3" />
+      <File FileName="Kablooey\Ship.cs" Line="33" Column="5" />
+      <File FileName="Kablooey\Quikkship.cs" Line="28" Column="3" />
+      <File FileName="Kablooey\SlowShip.cs" Line="27" Column="4" />
+      <File FileName="Kablooey\TeleportShip.cs" Line="26" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Kablooey" expanded="True">
             <Node name="textures" expanded="True" />
-            <Node name="Ship.cs" selected="True" />
+            <Node name="AppMain.cs" selected="True" />
           </Node>
         </State>
       </Pad>

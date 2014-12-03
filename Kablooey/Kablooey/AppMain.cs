@@ -79,7 +79,13 @@ namespace Kablooey
 
 		public static void Update ()
 		{
+			//Background Update
 			background.Update(0.0f);
+			
+			//Ship Updates
+			quikkShip.Update(0.0f);
+			slowShip.Update(0.0f);
+			teleportShip.Update(0.0f);
 		}
 	}
 }
