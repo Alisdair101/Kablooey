@@ -17,8 +17,6 @@ namespace Kablooey
 		protected float 		speed;
 		protected bool			alive;
 		
-		private int			counter;
-		
 		public Ship (Scene scene)
 		{
 			
@@ -31,7 +29,7 @@ namespace Kablooey
 		
 		public void Update(float deltaTime)
 		{	
-			sprite.Position = new Vector2(sprite.Position.X - speed, sprite.Position.Y);
+			//sprite.Position = new Vector2(sprite.Position.X - speed, sprite.Position.Y);
 		}	
 		
 		public void Tapped()
