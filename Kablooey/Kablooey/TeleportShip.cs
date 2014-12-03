@@ -12,13 +12,17 @@ namespace Kablooey
 	{
 		public TeleportShip (Scene scene) : base(scene)
 		{
-			sprite	 		= new SpriteUV();
+			textureInfo     = new TextureInfo("/Application/textures/teleportShipTex.png");
+			
 			sprite 			= new SpriteUV(textureInfo);
 			sprite.Quad.S 	= textureInfo.TextureSizef;
-			textureInfo  = new TextureInfo("/Application/textures/teleportShipTex.png");
 			sprite.Position = new Vector2(0.0f, 0.0f);
 			health = 2.0f;
 			speed  = 1.0f;
+			alive = true;
+			
+			//Add to the current scene.
+			scene.AddChild(sprite);
 		}
 	}
 }
