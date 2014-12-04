@@ -20,13 +20,19 @@ namespace Kablooey
 		private static Background background;
 		private static Fortress fortress;
 		private static Gun gun;
-		private static Ship teleportShip;
-		private static Ship quikkShip;
-		private static Ship slowShip;
+		private static Ship[] teleportShips;
+		private static Ship[] quikkShips;
+		private static Ship[] slowShips;
+		
+		private static Timer  timer;
+		private static int    timeSeed;
 		
 		public static void Main(string[] args)
 		{
 			Initialize ();
+			
+			timer = new Timer();
+			timeSeed = 0;
 			
 			//Game loop
 			bool quitGame = false;
@@ -63,9 +69,23 @@ namespace Kablooey
 			gun = new Gun(gameScene);
 			
 			//Ships
-			teleportShip = new TeleportShip(gameScene);
-			quikkShip = new QuikkShip(gameScene);
-			slowShip = new SlowShip(gameScene);
+			teleportShips = new TeleportShip[5];
+			quikkShips    = new QuikkShip[5];
+			slowShips     = new SlowShip[5];
+			
+			timer = new Timer();
+			
+			for(int i = 0; i <= 4; i++)
+			{
+				timeSeed = (int)timer.Milliseconds();
+				teleportShips[i] = new TeleportShip(gameScene, timeSeed+i);
+				
+				timeSeed = (int)timer.Milliseconds();
+				quikkShips[i]    = new QuikkShip(gameScene, timeSeed);
+				
+				timeSeed = (int)timer.Milliseconds();
+				slowShips[i]     = new SlowShip(gameScene, timeSeed);
+			}
 			
 			//Run the scene.
 			Director.Instance.RunWithScene(gameScene, true);
@@ -82,10 +102,33 @@ namespace Kablooey
 			//Background Update
 			background.Update(0.0f);
 			
+			timer = new Timer();
+			
 			//Ship Updates
-			quikkShip.Update(0.0f);
-			slowShip.Update(0.0f);
-			teleportShip.Update(0.0f);
+			for(int i = 0; i <= 4; i++)
+			{
+				teleportShips[i].Update(0.0f);
+				quikkShips[i].Update(0.0f);
+				slowShips[i].Update(0.0f);
+				
+				if(teleportShips[i].getAlive() == false)
+				{
+					timeSeed = (int)timer.Milliseconds(); 
+					teleportShips[i].Respawn(timeSeed);
+				}
+				
+				if(quikkShips[i].getAlive() == false)
+				{
+					timeSeed = (int)timer.Milliseconds(); 
+					quikkShips[i].Respawn(timeSeed);
+				}
+				
+				if(slowShips[i].getAlive() == false)
+				{
+					timeSeed = (int)timer.Milliseconds(); 
+					slowShips[i].Respawn(timeSeed);
+				}
+			}
 		}
 	}
 }
