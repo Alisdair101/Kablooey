@@ -27,6 +27,8 @@ namespace Kablooey
 			Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.RandGenerator rand = new Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.RandGenerator(timeSeed);
 			float randomY = rand.NextFloat(0, 470);
 			sprite.Position = new Vector2(960, randomY);
+			
+			alive = true;
 		}
 		
 		public SpriteUV getSprite

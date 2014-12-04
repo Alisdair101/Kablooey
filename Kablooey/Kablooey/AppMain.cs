@@ -38,7 +38,7 @@ namespace Kablooey
 			bool quitGame = false;
 			while (!quitGame)
 			{
-				Update ();
+				Update (timer);
 				
 				Director.Instance.Update();
 				Director.Instance.Render();
@@ -97,12 +97,10 @@ namespace Kablooey
 			Director.Terminate();
 		}
 
-		public static void Update ()
+		public static void Update (Timer timer)
 		{
 			//Background Update
 			background.Update(0.0f);
-			
-			timer = new Timer();
 			
 			//Ship Updates
 			for(int i = 0; i <= 4; i++)
