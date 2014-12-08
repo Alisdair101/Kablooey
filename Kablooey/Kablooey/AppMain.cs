@@ -223,6 +223,57 @@ namespace Kablooey
 				}
 			}
 		}
+		
+		public static void UpdateCollisions()
+		{
+			//Collision Detection
+			for(int i = 0; i <= teleportShipCount; i++)
+			{
+				//Teleport Ship Collision Detection
+				//Call Collision, pass in fortress bounds and teleportShip bounds
+				bool collision = Collision (fortress.getBounds(), teleportShips[i].getBounds());
+				
+				//Teleport Ship Collision Outcome
+				if(collision)
+				{
+					//Teleport ship alive property set to false
+					teleportShips[i].setAlive(false);
+					//Fortress health - 1
+					fortress.hit(1);
+				}
+			}
+				
+			for(int i = 0; i <= quikkShipCount; i++)
+			{
+				//Quikk Ship Collision Detection
+				//Call Collision, pass in fortress bounds and quikkShip bounds
+				bool collision = Collision (fortress.getBounds(), quikkShips[i].getBounds());
+				
+				//Quikk Ship Collision Outcome
+				if(collision)
+				{
+					//Quikk ship alive property set to false
+					quikkShips[i].setAlive(false);
+					//Fortress health - 1
+					fortress.hit(1);
+				}
+			}
+			
+			for(int i = 0; i <= slowShipCount; i++)
+			{
+				//Slow Ship Collision Detection
+				//Call Collision, pass in fortress bounds and slowShip bounds
+				bool collision = Collision (fortress.getBounds(), slowShips[i].getBounds());
+			
+				//Slow Ship Collision Outcome
+				if(collision)
+				{
+					//Slow ship alive property set to false
+					slowShips[i].setAlive(false);
+					//Fortress health - 1
+					fortress.hit(1);
+				}
+			}
 		}
 	}
 }
