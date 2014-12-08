@@ -16,12 +16,13 @@ namespace Kablooey
 		protected float 		speed;
 		protected bool			alive;
 		protected Vector2		startSpawn;
+		protected Bounds2 		bounds;
 		
 		public Ship (Scene scene)
 		{
 			
 		}
-		
+	
 		public void Respawn(int timeSeed)
 		{
 			Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.RandGenerator rand = new Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.RandGenerator(timeSeed);
@@ -31,14 +32,19 @@ namespace Kablooey
 			alive = true;
 		}
 		
-		public SpriteUV getSprite
+		public SpriteUV getSprite()
 		{
-			get{return sprite;}
+			return sprite;
 		}
 		
 		public bool getAlive()
 		{
 			return alive;	
+		}
+		
+		public void setAlive(bool alive)
+		{
+			this.alive = alive;	
 		}
 		
 		public void Update(float deltaTime)
@@ -49,6 +55,18 @@ namespace Kablooey
 			{
 				alive = false;
 			}
+		}
+		
+		public SpriteUV Sprite()
+		{
+			return sprite;
+		}
+		
+		public Bounds2 getBounds()
+		{
+			bounds = sprite.GetlContentLocalBounds();
+			sprite.GetContentWorldBounds(ref bounds);
+			return bounds;
 		}
 	}
 }

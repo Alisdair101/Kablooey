@@ -15,27 +15,35 @@ namespace Kablooey
 	public class AppMain
 	{
 		private static Sce.PlayStation.HighLevel.GameEngine2D.Scene 	gameScene;
-		private int testVar = 1;
+		private static int testVar = 1;
 		
 		private static Background background;
 		private static Fortress fortress;
 		private static Gun gun;
+		
 		private static Ship[] teleportShips;
 		private static Ship[] quikkShips;
 		private static Ship[] slowShips;
 		
+		private static int teleportShipCount;
+		private static int quikkShipCount;
+		private static int slowShipCount;
+		
+		private static bool teleportShipAdded;
+		private static bool quikkShipAdded;
+		private static bool slowShipAdded;
+		
 		private static Timer  timer;
 		private static int    timeSeed;
+		
+		private static bool quitGame;
 		
 		public static void Main(string[] args)
 		{
 			Initialize ();
 			
-			timer = new Timer();
-			timeSeed = 0;
-			
 			//Game loop
-			bool quitGame = false;
+			quitGame = false;
 			while (!quitGame)
 			{
 				Update (timer);
@@ -73,6 +81,15 @@ namespace Kablooey
 			quikkShips    = new QuikkShip[5];
 			slowShips     = new SlowShip[5];
 			
+			teleportShipCount = 0;
+			quikkShipCount = 0;
+			slowShipCount = 0;
+			
+			teleportShipAdded = false;
+			quikkShipAdded = false;
+			slowShipAdded = false;
+			
+			timeSeed = 0;
 			timer = new Timer();
 			
 			for(int i = 0; i <= 4; i++)
@@ -94,7 +111,36 @@ namespace Kablooey
 		public static void Cleanup()
 		{
 			background.Dispose();
+			fortress.Dispose();
+			
+			foreach(TeleportShip teleportShip in teleportShips)
+			{
+				teleportShip.Dispose();
+			}
+			
+			foreach(QuikkShip quikkShip in quikkShips)
+			{
+				quikkShip.Dispose();
+			}
+			
+			foreach(SlowShip slowShip in slowShips)
+			{
+				slowShip.Dispose();
+			}
+			
 			Director.Terminate();
+		}
+		
+		public static bool Collision(Bounds2 sprite1Bounds, Bounds2 sprite2Bounds)
+		{
+			if(sprite1Bounds.Overlaps(sprite2Bounds))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public static void Update (Timer timer)
@@ -102,24 +148,73 @@ namespace Kablooey
 			//Background Update
 			background.Update(0.0f);
 			
+			//Fortress Update
+			fortress.Update (0.0f);
+			
+			if(fortress.getHealth() <= 0)
+			{
+				quitGame = true;
+			}
+			
+			//Ship Updates and Respawns
+			UpdateShips();
+			
+			//Collision Checks and Updates
+			UpdateCollisions();
+		}
+		
+		public static void UpdateShips()
+		{
+			if(timer.Seconds() >= 10 && !quikkShipAdded)
+			{
+				quikkShipCount += 1;
+				quikkShipAdded = true;
+			}
+			else if(timer.Seconds() >= 15 && !slowShipAdded)
+			{
+				slowShipCount += 1;
+				slowShipAdded = true;
+			}
+			else if(timer.Seconds() >= 20 && !teleportShipAdded)
+			{
+				teleportShipCount += 1;
+				
+				//Not used, but added in case order of ships added changed
+				teleportShipAdded = true;
+				teleportShipAdded = false;
+				
+				quikkShipAdded = false;
+				slowShipAdded = false;
+				
+				timer.Reset();
+			}
+			
 			//Ship Updates
-			for(int i = 0; i <= 4; i++)
+			for(int i = 0; i <= teleportShipCount; i++)
 			{
 				teleportShips[i].Update(0.0f);
-				quikkShips[i].Update(0.0f);
-				slowShips[i].Update(0.0f);
 				
 				if(teleportShips[i].getAlive() == false)
 				{
-					timeSeed = (int)timer.Milliseconds(); 
+					timeSeed = (int)timer.Milliseconds();
 					teleportShips[i].Respawn(timeSeed);
 				}
+			}
+			
+			for(int i = 0; i <= quikkShipCount; i++)
+			{
+				quikkShips[i].Update(0.0f);
 				
 				if(quikkShips[i].getAlive() == false)
 				{
 					timeSeed = (int)timer.Milliseconds(); 
 					quikkShips[i].Respawn(timeSeed);
 				}
+			}
+				
+			for(int i = 0; i <= slowShipCount; i++)
+			{
+				slowShips[i].Update(0.0f);
 				
 				if(slowShips[i].getAlive() == false)
 				{
@@ -127,6 +222,7 @@ namespace Kablooey
 					slowShips[i].Respawn(timeSeed);
 				}
 			}
+		}
 		}
 	}
 }

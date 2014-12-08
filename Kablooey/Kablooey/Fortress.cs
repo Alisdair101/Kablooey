@@ -10,11 +10,12 @@ namespace Kablooey
 {
 	public class Fortress
 	{
-		private SpriteTile sprite;
+		private SpriteTile  sprite;
 		private TextureInfo textureInfo;
-		private int tileIndex = 0;
+		private Bounds2 	bounds;
+		private int 		tileIndex = 0;
 		
-		private int health = 10;
+		private int health;
 		
 		public Fortress (Scene scene)
 		{
@@ -26,10 +27,7 @@ namespace Kablooey
 			
 			sprite.TileIndex2D = new Vector2i(tileIndex, 0);
 			
-			if(health <= 5)
-			{
-				tileIndex = 1;
-			}
+			health = 10;
 			
 			scene.AddChild(sprite);
 		}
@@ -41,7 +39,33 @@ namespace Kablooey
 		
 		public void Update(float deltaTime)
 		{
-			
+			if(health <= 5)
+			{
+				tileIndex = 1;
+				sprite.TileIndex2D = new Vector2i(tileIndex, 0);
+			}
+		}
+		
+		public SpriteTile getSprite()
+		{
+			return sprite;
+		}
+		
+		public Bounds2 getBounds()
+		{
+			bounds = sprite.GetlContentLocalBounds();
+			sprite.GetContentWorldBounds(ref bounds);
+			return bounds;
+		}
+		
+		public int getHealth()
+		{
+			return health;	
+		}
+		
+		public void hit(int hit)
+		{
+			health -= hit;
 		}
 	}
 }
