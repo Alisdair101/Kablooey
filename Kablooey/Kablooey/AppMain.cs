@@ -165,17 +165,17 @@ namespace Kablooey
 		
 		public static void UpdateShips()
 		{
-			if(timer.Seconds() >= 10 && !quikkShipAdded)
+			if(quikkShipCount < 4 && timer.Seconds() >= 10 && !quikkShipAdded)
 			{
 				quikkShipCount += 1;
 				quikkShipAdded = true;
 			}
-			else if(timer.Seconds() >= 15 && !slowShipAdded)
+			else if(slowShipCount < 4 && timer.Seconds() >= 15 && !slowShipAdded)
 			{
 				slowShipCount += 1;
 				slowShipAdded = true;
 			}
-			else if(timer.Seconds() >= 20 && !teleportShipAdded)
+			else if(teleportShipCount < 4 && timer.Seconds() >= 20 && !teleportShipAdded)
 			{
 				teleportShipCount += 1;
 				
