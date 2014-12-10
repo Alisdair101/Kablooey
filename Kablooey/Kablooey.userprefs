@@ -2,18 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Kablooey\AppMain.cs">
     <Files>
-      <File FileName="Kablooey\AppMain.cs" Line="226" Column="3" />
-      <File FileName="Kablooey\Fortress.cs" Line="66" Column="18" />
-      <File FileName="Kablooey\Ship.cs" Line="48" Column="4" />
-      <File FileName="Kablooey\TeleportShip.cs" Line="35" Column="4" />
-      <File FileName="Kablooey\SlowShip.cs" Line="1" Column="1" />
-      <File FileName="Kablooey\Quikkship.cs" Line="1" Column="1" />
+      <File FileName="Kablooey\AppMain.cs" Line="144" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Kablooey" expanded="True">
-            <Node name="Kablooey.csproj" selected="True" />
+            <Node name="AppMain.cs" selected="True" />
           </Node>
         </State>
       </Pad>
@@ -23,9 +18,7 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Steven\Desktop\Kablooey\Kablooey\Kablooey\AppMain.cs" line="136" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

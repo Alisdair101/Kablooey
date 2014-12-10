@@ -10,12 +10,14 @@ using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 using Sce.PlayStation.HighLevel.UI;
 
+
 namespace Kablooey
 {
 	public class AppMain
 	{
 		private static Sce.PlayStation.HighLevel.GameEngine2D.Scene 	gameScene;
-		private static int testVar = 1;
+		private static Sce.PlayStation.HighLevel.UI.Scene 				uiScene;
+		private static Sce.PlayStation.HighLevel.UI.Label				scoreLabel;
 		
 		private static Background background;
 		private static Fortress fortress;
@@ -38,6 +40,8 @@ namespace Kablooey
 		
 		private static bool quitGame;
 		
+		private static int score = 0;
+		
 		public static void Main(string[] args)
 		{
 			Initialize ();
@@ -46,10 +50,16 @@ namespace Kablooey
 			quitGame = false;
 			while (!quitGame)
 			{
+				var touches = Touch.GetData(0);
 				Update (timer);
 				
+				//Update Director Instance and UI
 				Director.Instance.Update();
+				UISystem.Update(touches);
+				
+				//Render Director Instance and UI
 				Director.Instance.Render();
+				UISystem.Render();
 				
 				Director.Instance.GL.Context.SwapBuffers();
 				Director.Instance.PostSwap();
@@ -60,12 +70,37 @@ namespace Kablooey
 
 		public static void Initialize()
 		{
+
 			//Set up director
 			Director.Initialize();
+			UISystem.Initialize(Director.Instance.GL.Context);
 			
 			//Set game scene
 			gameScene = new Sce.PlayStation.HighLevel.GameEngine2D.Scene();
 			gameScene.Camera.SetViewFromViewport();
+			
+			//Set the ui scene.
+			uiScene = new Sce.PlayStation.HighLevel.UI.Scene();
+			
+			//Create the Panel
+			Panel panel  = new Panel();
+			panel.Width  = Director.Instance.GL.Context.GetViewport().Width;
+			panel.Height = Director.Instance.GL.Context.GetViewport().Height;
+			
+			//Create the Score Label
+			scoreLabel = new Sce.PlayStation.HighLevel.UI.Label();
+			scoreLabel.HorizontalAlignment = HorizontalAlignment.Center;
+			scoreLabel.VerticalAlignment = VerticalAlignment.Top;
+			scoreLabel.SetPosition(
+				Director.Instance.GL.Context.GetViewport().Width/2 - scoreLabel.Width/2,
+				Director.Instance.GL.Context.GetViewport().Height*0.1f - scoreLabel.Height/2);
+			scoreLabel.TextColor = new UIColor(0.0f, 0.0f, 0.0f, 1);
+			scoreLabel.Text = "Score: " + score;
+			
+			//Add the UI to the scene
+			panel.AddChildLast(scoreLabel);
+			uiScene.RootWidget.AddChildLast(panel);
+			UISystem.SetScene(uiScene);
 			
 			//Background
 			background = new Background(gameScene);
@@ -240,6 +275,10 @@ namespace Kablooey
 					teleportShips[i].setAlive(false);
 					//Fortress health - 1
 					fortress.hit(1);
+					//Update score
+					score += 1;	
+					scoreLabel.Text = "Score: " + score;
+					
 				}
 			}
 				
@@ -256,6 +295,9 @@ namespace Kablooey
 					quikkShips[i].setAlive(false);
 					//Fortress health - 1
 					fortress.hit(1);
+					//Update score
+					score += 1;	
+					scoreLabel.Text = "Score: " + score;
 				}
 			}
 			
@@ -272,6 +314,9 @@ namespace Kablooey
 					slowShips[i].setAlive(false);
 					//Fortress health - 1
 					fortress.hit(1);
+					//Update score
+					score += 1;	
+					scoreLabel.Text = "Score: " + score;
 				}
 			}
 		}
