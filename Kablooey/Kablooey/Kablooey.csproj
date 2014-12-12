@@ -67,7 +67,7 @@
     <Content Include="textures\slowShipTex.png" />
     <Content Include="textures\teleportShipTex.png" />
     <Content Include="textures\bullet.png" />
-    <Content Include="textures\reticule.png" />
+    <Content Include="textures\reticle.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Kablooey.csproj" />
