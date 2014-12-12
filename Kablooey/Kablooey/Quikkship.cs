@@ -21,7 +21,8 @@ namespace Kablooey
 			float randomY = rand.NextFloat(0, 470);
 			sprite.Position = new Vector2(960, randomY);
 			
-			health = 1.0f;
+			health = 1;
+			healthBackUp = 1;
 			speed  = 4.0f;
 			alive = true;
 			

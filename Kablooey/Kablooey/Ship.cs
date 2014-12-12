@@ -12,7 +12,8 @@ namespace Kablooey
 	{
 		protected SpriteUV 		sprite;
 		protected TextureInfo	textureInfo;
-		protected float 		health;
+		protected int 			health;
+		protected int			healthBackUp;
 		protected float 		speed;
 		protected bool			alive;
 		protected Vector2		startSpawn;
@@ -22,7 +23,7 @@ namespace Kablooey
 		{
 			
 		}
-	
+
 		public void Respawn(int timeSeed)
 		{
 			Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.RandGenerator rand = new Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.RandGenerator(timeSeed);
@@ -30,6 +31,7 @@ namespace Kablooey
 			sprite.Position = new Vector2(960, randomY);
 			
 			alive = true;
+			health = healthBackUp;
 		}
 		
 		public SpriteUV getSprite()
@@ -51,9 +53,9 @@ namespace Kablooey
 		{
 			sprite.Position = new Vector2(sprite.Position.X - speed, sprite.Position.Y);
 			
-			if(sprite.Position.X < -171)
+			if(health <= 0)
 			{
-				alive = false;
+				alive = false;	
 			}
 		}
 		
@@ -67,6 +69,11 @@ namespace Kablooey
 			bounds = sprite.GetlContentLocalBounds();
 			sprite.GetContentWorldBounds(ref bounds);
 			return bounds;
+		}
+		
+		public void hit()
+		{
+			health -= 1;	
 		}
 	}
 }
