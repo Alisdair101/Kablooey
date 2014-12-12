@@ -10,7 +10,6 @@ using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 using Sce.PlayStation.HighLevel.UI;
 
-
 namespace Kablooey
 {
 	public class AppMain
@@ -18,6 +17,8 @@ namespace Kablooey
 		private static Sce.PlayStation.HighLevel.GameEngine2D.Scene 	gameScene;
 		private static Sce.PlayStation.HighLevel.UI.Scene 				uiScene;
 		private static Sce.PlayStation.HighLevel.UI.Label				scoreLabel;
+		
+		private static GamePadData gamePadData;
 		
 		private static Background background;
 		private static Fortress fortress;
@@ -35,12 +36,15 @@ namespace Kablooey
 		private static bool quikkShipAdded;
 		private static bool slowShipAdded;
 		
+		private static Bullet[] bullets;
+		private static bool fireButtonDown;
+		
 		private static Timer  timer;
 		private static int    timeSeed;
 		
 		private static bool quitGame;
 		
-		private static int score = 0;
+		private static int score;
 		
 		public static void Main(string[] args)
 		{
@@ -50,12 +54,10 @@ namespace Kablooey
 			quitGame = false;
 			while (!quitGame)
 			{
-				var touches = Touch.GetData(0);
 				Update (timer);
 				
 				//Update Director Instance and UI
 				Director.Instance.Update();
-				UISystem.Update(touches);
 				
 				//Render Director Instance and UI
 				Director.Instance.Render();
@@ -70,7 +72,6 @@ namespace Kablooey
 
 		public static void Initialize()
 		{
-
 			//Set up director
 			Director.Initialize();
 			UISystem.Initialize(Director.Instance.GL.Context);
@@ -81,6 +82,7 @@ namespace Kablooey
 			
 			//Set the ui scene.
 			uiScene = new Sce.PlayStation.HighLevel.UI.Scene();
+			score = 0;
 			
 			//Create the Panel
 			Panel panel  = new Panel();
@@ -108,6 +110,16 @@ namespace Kablooey
 			//Fortress
 			fortress = new Fortress(gameScene);
 			
+			//Bullets
+			bullets = new Bullet[20];
+			
+			for(int i = 0; i <= 19; i++)
+			{
+				bullets[i] = new Bullet(gameScene);	
+			}
+			
+			fireButtonDown = false;
+				
 			//Gun
 			gun = new Gun(gameScene);
 			
@@ -180,19 +192,28 @@ namespace Kablooey
 
 		public static void Update (Timer timer)
 		{
+			
 			//Background Update
 			background.Update(0.0f);
 			
 			//Fortress Update
-			fortress.Update (0.0f);
+			fortress.Update(0.0f);
+			
+			//Gun Update
+			gun.Update(0.0f);
+			
+			//Bullets Update
+			UpdateBullets();
 			
 			if(fortress.getHealth() <= 0)
 			{
-				quitGame = true;
+				//quitGame = true;
 			}
-			
 			//Ship Updates and Respawns
 			UpdateShips();
+			
+			//Update Bullet Position and Fire Check
+			UpdateBullets();
 			
 			//Collision Checks and Updates
 			UpdateCollisions();
@@ -233,6 +254,9 @@ namespace Kablooey
 				{
 					timeSeed = (int)timer.Milliseconds();
 					teleportShips[i].Respawn(timeSeed);
+					//Update score
+					score += 1;	
+					scoreLabel.Text = "Score: " + score;
 				}
 			}
 			
@@ -244,6 +268,9 @@ namespace Kablooey
 				{
 					timeSeed = (int)timer.Milliseconds(); 
 					quikkShips[i].Respawn(timeSeed);
+					//Update score
+					score += 1;	
+					scoreLabel.Text = "Score: " + score;
 				}
 			}
 				
@@ -255,11 +282,57 @@ namespace Kablooey
 				{
 					timeSeed = (int)timer.Milliseconds(); 
 					slowShips[i].Respawn(timeSeed);
+					//Update score
+					score += 1;	
+					scoreLabel.Text = "Score: " + score;
+				}
+			}
+		}
+		
+		public static void UpdateBullets()
+		{
+			gamePadData = GamePad.GetData(0);
+			
+			if((gamePadData.Buttons & GamePadButtons.R) != 0)
+			{
+				for(int i = 0; i <= 19; i++)
+				{
+					if(!fireButtonDown && bullets[i].getFired() == false)
+					{
+						bullets[i].setFired(true);
+						
+						Vector2 retAimPos = gun.getRetAimPosition();
+						bullets[i].setTrajectory(retAimPos);
+						
+						fireButtonDown = true;
+					}
+				}
+			}
+			
+			if((gamePadData.Buttons & GamePadButtons.R) == 0)
+			{
+				fireButtonDown = false;
+			}
+			
+			for(int i = 0; i <= 19; i++)
+			{
+				if(bullets[i].getFired() == true)
+				{
+					bullets[i].Update(0.0f);
 				}
 			}
 		}
 		
 		public static void UpdateCollisions()
+		{
+			//Update Ship Collisions
+			UpdateShipCollisions();
+			
+			//Update Bullet Collisions
+			UpdateBulletCollisions();
+		}
+		
+		public static void UpdateShipCollisions()
 		{
 			//Collision Detection
 			for(int i = 0; i <= teleportShipCount; i++)
@@ -275,10 +348,6 @@ namespace Kablooey
 					teleportShips[i].setAlive(false);
 					//Fortress health - 1
 					fortress.hit(1);
-					//Update score
-					score += 1;	
-					scoreLabel.Text = "Score: " + score;
-					
 				}
 			}
 				
@@ -295,9 +364,6 @@ namespace Kablooey
 					quikkShips[i].setAlive(false);
 					//Fortress health - 1
 					fortress.hit(1);
-					//Update score
-					score += 1;	
-					scoreLabel.Text = "Score: " + score;
 				}
 			}
 			
@@ -314,9 +380,54 @@ namespace Kablooey
 					slowShips[i].setAlive(false);
 					//Fortress health - 1
 					fortress.hit(1);
-					//Update score
-					score += 1;	
-					scoreLabel.Text = "Score: " + score;
+				}
+			}
+		}
+		
+		public static void UpdateBulletCollisions()
+		{
+			for(int i = 0; i <= 19; i++)
+			{
+				if(bullets[i].getFired() == true)
+				{
+					for(int ii = 0; ii <= teleportShipCount; ii++)
+					{
+						bool collision = Collision(bullets[i].getBounds(), teleportShips[ii].getBounds());
+						
+						if(collision)
+						{
+							teleportShips[ii].hit();
+							bullets[i].resetBullet();
+						}
+					}
+				}
+					
+				if(bullets[i].getFired() == true)
+				{
+					for(int ii = 0; ii <= quikkShipCount; ii++)
+					{
+						bool collision = Collision(bullets[i].getBounds(), quikkShips[ii].getBounds());
+						
+						if(collision)
+						{
+							quikkShips[ii].hit();
+							bullets[i].resetBullet();
+						}
+					}
+				}
+					
+				if(bullets[i].getFired() == true)
+				{
+					for(int ii = 0; ii <= slowShipCount; ii++)
+					{
+						bool collision = Collision(bullets[i].getBounds(), slowShips[ii].getBounds());
+						
+						if(collision)
+						{
+							slowShips[ii].hit();
+							bullets[i].resetBullet();
+						}
+					}
 				}
 			}
 		}

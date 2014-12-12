@@ -46,6 +46,7 @@
     <Compile Include="Quikkship.cs" />
     <Compile Include="SlowShip.cs" />
     <Compile Include="TeleportShip.cs" />
+    <Compile Include="Bullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -66,6 +67,7 @@
     <Content Include="textures\slowShipTex.png" />
     <Content Include="textures\teleportShipTex.png" />
     <Content Include="textures\bullet.png" />
+    <Content Include="textures\reticule.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Kablooey.csproj" />
