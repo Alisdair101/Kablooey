@@ -2,13 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Kablooey\AppMain.cs">
     <Files>
-      <File FileName="Kablooey\AppMain.cs" Line="179" Column="4" />
-      <File FileName="Kablooey\Ship.cs" Line="79" Column="2" />
-      <File FileName="Kablooey\TeleportShip.cs" Line="24" Column="14" />
-      <File FileName="Kablooey\SlowShip.cs" Line="24" Column="14" />
-      <File FileName="Kablooey\Quikkship.cs" Line="24" Column="14" />
-      <File FileName="Kablooey\Bullet.cs" Line="65" Column="3" />
-      <File FileName="Kablooey\Gun.cs" Line="18" Column="38" />
+      <File FileName="Kablooey\AppMain.cs" Line="198" Column="23" />
+      <File FileName="Kablooey\Title.cs" Line="27" Column="4" />
+      <File FileName="Kablooey\GameOver.cs" Line="21" Column="65" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

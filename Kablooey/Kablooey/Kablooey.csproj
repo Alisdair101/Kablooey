@@ -47,6 +47,8 @@
     <Compile Include="SlowShip.cs" />
     <Compile Include="TeleportShip.cs" />
     <Compile Include="Bullet.cs" />
+    <Compile Include="Title.cs" />
+    <Compile Include="GameOver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -68,6 +70,8 @@
     <Content Include="textures\teleportShipTex.png" />
     <Content Include="textures\bullet.png" />
     <Content Include="textures\reticle.png" />
+    <Content Include="textures\menuTitle.png" />
+    <Content Include="textures\menuEnd.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Kablooey.csproj" />

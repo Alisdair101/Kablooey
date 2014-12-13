@@ -23,6 +23,8 @@ namespace Kablooey
 		private static Background background;
 		private static Fortress fortress;
 		private static Gun gun;
+		private static Title title;
+		private static GameOver gameover;
 		
 		private static Ship[] teleportShips;
 		private static Ship[] quikkShips;
@@ -35,7 +37,10 @@ namespace Kablooey
 		private static bool teleportShipAdded;
 		private static bool quikkShipAdded;
 		private static bool slowShipAdded;
-		
+		private static bool menuon = true;
+		private static bool game = false;
+		private static bool end = false;
+	
 		private static Bullet[] bullets;
 		private static bool fireButtonDown;
 		
@@ -151,6 +156,19 @@ namespace Kablooey
 				slowShips[i]     = new SlowShip(gameScene, timeSeed);
 			}
 			
+			
+			//Create menu
+			 	
+			if (menuon == true )
+			{
+			title = new Title(gameScene);
+			
+			}
+			
+			
+			
+			
+			
 			//Run the scene.
 			Director.Instance.RunWithScene(gameScene, true);
 		}
@@ -175,6 +193,9 @@ namespace Kablooey
 				slowShip.Dispose();
 			}
 			
+			title.Dispose();
+			gameover.Dispose();
+			
 			Director.Terminate();
 		}
 		
@@ -193,30 +214,69 @@ namespace Kablooey
 		public static void Update (Timer timer)
 		{
 			
-			//Background Update
-			background.Update(0.0f);
+			//run menu
+			var touches = Touch.GetData(0);
+			var touch = Touch.GetData(0);
 			
-			//Fortress Update
-			fortress.Update(0.0f);
-			
-			//Gun Update
-			gun.Update(0.0f);
-			
-			//Bullets Update
-			UpdateBullets();
-			
-			if(fortress.getHealth() <= 0)
+			if (menuon == true)
 			{
-				//quitGame = true;
+				if (touches.Count > 0 )
+				{
+					menuon = false ;
+					game = true;
+					
+				}
+				
+			}	
+			
+			if (game == true)
+			{
+				title.Update(0.0f);		
+			
+				//Background Update
+				background.Update(0.0f);
+				
+				//Fortress Update
+				fortress.Update(0.0f);
+				
+				//Gun Update
+				gun.Update(0.0f);
+				
+				//Bullets Update
+				UpdateBullets();
+				
+				if(fortress.getHealth() <= 0)
+				{
+					//quitGame = true;
+					end = true;
+					game = false;
+					gameover = new GameOver(gameScene);
+					
+				}
+				//Ship Updates and Respawns
+				UpdateShips();
+				
+				//Update Bullet Position and Fire Check
+				UpdateBullets();
+				
+				//Collision Checks and Updates
+				UpdateCollisions();
+			
 			}
-			//Ship Updates and Respawns
-			UpdateShips();
 			
-			//Update Bullet Position and Fire Check
-			UpdateBullets();
+			//On game end check for tap to end game
+			if (end == true)
+			{
+				if (touch.Count > 0 )
+				{
+					end = false;
+					quitGame = true;
+							
+				}
+						
+			}
+				
 			
-			//Collision Checks and Updates
-			UpdateCollisions();
 		}
 		
 		public static void UpdateShips()
