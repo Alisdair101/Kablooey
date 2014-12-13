@@ -10,7 +10,7 @@ namespace Kablooey
 {
 	public class Ship
 	{
-		protected SpriteUV 		sprite;
+		protected SpriteTile 	sprite;
 		protected TextureInfo	textureInfo;
 		protected int 			health;
 		protected int			healthBackUp;
@@ -18,6 +18,8 @@ namespace Kablooey
 		protected bool			alive;
 		protected Vector2		startSpawn;
 		protected Bounds2 		bounds;
+		protected int			tileIndex;
+		protected bool 			tileDirection;
 		
 		public Ship (Scene scene)
 		{
@@ -34,7 +36,7 @@ namespace Kablooey
 			health = healthBackUp;
 		}
 		
-		public SpriteUV getSprite()
+		public SpriteTile getSprite()
 		{
 			return sprite;
 		}
@@ -57,11 +59,6 @@ namespace Kablooey
 			{
 				alive = false;	
 			}
-		}
-		
-		public SpriteUV Sprite()
-		{
-			return sprite;
 		}
 		
 		public Bounds2 getBounds()
